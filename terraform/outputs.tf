@@ -92,3 +92,9 @@ output "registrations_email_index" {
   description = "GSI used to query registrations by email"
   value       = local.registrations_email_index_name
 }
+output "api_base_url" {
+
+  description = "Base URL for the API Gateway"
+
+  value = aws_api_gateway_stage.dev.invoke_url
+}
