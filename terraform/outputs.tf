@@ -98,3 +98,14 @@ output "api_base_url" {
 
   value = aws_api_gateway_stage.dev.invoke_url
 }
+output "website_url" {
+
+  value = aws_s3_bucket_website_configuration.frontend.website_endpoint
+
+}
+
+output "website_bucket" {
+
+  value = aws_s3_bucket.frontend.bucket
+
+}

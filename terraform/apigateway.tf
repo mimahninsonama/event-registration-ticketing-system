@@ -84,6 +84,42 @@ resource "aws_lambda_permission" "api_gateway" {
 
   source_arn = "${aws_api_gateway_rest_api.event_api.execution_arn}/*/*"
 }
+
+##################################################
+# Enable CORS
+##################################################
+
+module "events_cors" {
+  source  = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+
+  api_id          = aws_api_gateway_rest_api.event_api.id
+  api_resource_id = aws_api_gateway_resource.events.id
+}
+
+module "register_cors" {
+  source  = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+
+  api_id          = aws_api_gateway_rest_api.event_api.id
+  api_resource_id = aws_api_gateway_resource.register.id
+}
+
+module "registrations_cors" {
+  source  = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+
+  api_id          = aws_api_gateway_rest_api.event_api.id
+  api_resource_id = aws_api_gateway_resource.registrations_email.id
+}
+
+module "registration_cors" {
+  source  = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+
+  api_id          = aws_api_gateway_rest_api.event_api.id
+  api_resource_id = aws_api_gateway_resource.registration_id.id
+}
 ##################################################
 # API Deployment
 ##################################################
@@ -94,7 +130,13 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_api_gateway_integration.get_events,
     aws_api_gateway_integration.register_event,
     aws_api_gateway_integration.get_registrations,
-    aws_api_gateway_integration.delete_registration
+    aws_api_gateway_integration.delete_registration,
+
+    module.events_cors,
+    module.register_cors,
+    module.registrations_cors,
+    module.registration_cors
+
   ]
 
   rest_api_id = aws_api_gateway_rest_api.event_api.id
@@ -118,6 +160,11 @@ resource "aws_api_gateway_deployment" "deployment" {
       aws_api_gateway_resource.registration_id.id,
       aws_api_gateway_method.delete_registration.id,
       aws_api_gateway_integration.delete_registration.id,
+
+      module.events_cors,
+      module.register_cors,
+      module.registrations_cors,
+      module.registration_cors
 
     ]))
   }
