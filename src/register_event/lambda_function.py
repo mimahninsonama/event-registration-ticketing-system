@@ -1,6 +1,7 @@
 import os
 
 import boto3
+from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from common.logger import logger
@@ -16,6 +17,7 @@ from common.ticket import (
 )
 from common.utils import (
     build_registration_item,
+    convert_decimals,
 )
 
 dynamodb = boto3.resource("dynamodb")
@@ -35,9 +37,9 @@ def lambda_handler(event, context):
 
     try:
 
-        # -------------------------------
-        # Parse the request body
-        # -------------------------------
+        # --------------------------------
+        # Parse request body
+        # --------------------------------
 
         body, error = parse_request_body(event)
 
@@ -47,16 +49,16 @@ def lambda_handler(event, context):
                 status_code=400
             )
 
-        # -------------------------------
+        # --------------------------------
         # Validate required fields
-        # -------------------------------
+        # --------------------------------
 
         errors = validate_required_fields(
             body,
             [
                 "event_id",
                 "full_name",
-                "email",
+                "email"
             ]
         )
 
@@ -67,9 +69,9 @@ def lambda_handler(event, context):
                 errors=errors
             )
 
-        # -------------------------------
+        # --------------------------------
         # Validate email
-        # -------------------------------
+        # --------------------------------
 
         if not validate_email(body["email"]):
             return error_response(
@@ -77,12 +79,92 @@ def lambda_handler(event, context):
                 status_code=400
             )
 
-        # Placeholder until we implement
-        # the remaining registration logic
+        # --------------------------------
+        # Verify event exists
+        # --------------------------------
+
+        response = events_table.get_item(
+            Key={
+                "event_id": body["event_id"]
+            }
+        )
+
+        event_item = convert_decimals(
+            response.get("Item")
+        )
+
+        if not event_item:
+            return error_response(
+                message="Event not found.",
+                status_code=404
+            )
+
+        # --------------------------------
+        # Generate Registration ID
+        # --------------------------------
+
+        registration_id = generate_registration_id()
+
+        # --------------------------------
+        # Generate Ticket ID
+        # --------------------------------
+
+        ticket_id = generate_ticket_id()
+
+        # --------------------------------
+        # Build Registration Record
+        # --------------------------------
+
+        registration = build_registration_item(
+            registration_id=registration_id,
+            ticket_id=ticket_id,
+            event_id=body["event_id"],
+            full_name=body["full_name"],
+            email=body["email"]
+        )
+
+        # --------------------------------
+        # Check Duplicate Registration
+        # --------------------------------
+
+        response = registrations_table.query(
+            IndexName="email-index",
+            KeyConditionExpression=Key("email").eq(body["email"])
+        )
+
+        existing = response.get("Items", [])
+
+        for item in existing:
+            if item["event_id"] == body["event_id"]:
+                return error_response(
+                    message="You are already registered for this event.",
+                    status_code=409
+                )
+
+        # --------------------------------
+        # Save Registration
+        # --------------------------------
+
+        registrations_table.put_item(
+            Item=registration
+        )
+
+        logger.info(
+            f"Registration created successfully: {registration_id}"
+        )
+
+        # --------------------------------
+        # Success Response
+        # --------------------------------
 
         return success_response(
-            message="Validation successful.",
-            data=body
+            message="Registration successful.",
+            data={
+                "registration_id": registration_id,
+                "ticket_id": ticket_id,
+                "event_id": body["event_id"],
+                "status": "CONFIRMED"
+            }
         )
 
     except ClientError as e:

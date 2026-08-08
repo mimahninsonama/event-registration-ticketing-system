@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>My Registrations</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>My Registrations</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+
+    </nav>
+
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Search</h2>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+        >
+
+        <br><br>
+
+        <button onclick="loadRegistrations()">
+
+            Search
+
+        </button>
+
+    </div>
+
+    <div id="registrations-container">
+
+    </div>
+
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/registrations.js"></script>
+
+</body>
+
+</html>

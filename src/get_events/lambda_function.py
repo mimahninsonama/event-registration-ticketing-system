@@ -2,6 +2,7 @@ import os
 
 import boto3
 from botocore.exceptions import ClientError
+from common.utils import convert_decimals
 
 from common.logger import logger
 from common.responses import success_response, error_response
@@ -21,7 +22,9 @@ def lambda_handler(event, context):
 
         response = events_table.scan()
 
-        events = response.get("Items", [])
+        events = convert_decimals(
+           response.get("Items", [])
+)
 
         logger.info(f"Retrieved {len(events)} events.")
 
