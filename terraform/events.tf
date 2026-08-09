@@ -13,6 +13,7 @@ resource "aws_dynamodb_table_item" "event_001" {
     location    = { S = "Accra" }
     date        = { S = "2026-09-15" }
     capacity    = { N = "50" }
+    registered  = { N = "0" }
     description = { S = "Learn AWS fundamentals and cloud best practices." }
   })
 }
@@ -27,7 +28,8 @@ resource "aws_dynamodb_table_item" "event_002" {
     title       = { S = "Terraform Fundamentals" }
     location    = { S = "Kumasi" }
     date        = { S = "2026-09-22" }
-    capacity    = { N = "40" }
+    capacity    = { N = "10" }
+    #registered  = { N = "0" }
     description = { S = "Infrastructure as Code with Terraform." }
   })
 }
@@ -43,6 +45,7 @@ resource "aws_dynamodb_table_item" "event_003" {
     location    = { S = "Takoradi" }
     date        = { S = "2026-10-05" }
     capacity    = { N = "35" }
+    #registered  = { N = "0" }
     description = { S = "Build applications using Lambda and API Gateway." }
   })
 }
@@ -57,7 +60,8 @@ resource "aws_dynamodb_table_item" "event_004" {
     title       = { S = "Cloud Security Essentials" }
     location    = { S = "Cape Coast" }
     date        = { S = "2026-10-18" }
-    capacity    = { N = "30" }
+    capacity    = { N = "3" }
+    #registered  = { N = "0" }
     description = { S = "Identity, IAM, encryption, and security best practices." }
   })
 }
@@ -72,7 +76,8 @@ resource "aws_dynamodb_table_item" "event_005" {
     title       = { S = "DevOps with AWS" }
     location    = { S = "Tamale" }
     date        = { S = "2026-11-02" }
-    capacity    = { N = "45" }
+    capacity    = { N = "5" }
+    #registered  = { N = "0" }
     description = { S = "CI/CD, CodePipeline, and deployment automation." }
   })
 }
