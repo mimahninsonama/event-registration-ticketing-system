@@ -653,3 +653,298 @@ main {
     }
 
 }
+/* =========================================================
+   MY REGISTRATIONS PAGE
+   ========================================================= */
+
+.registrations-page {
+    min-height: calc(100vh - 150px);
+    background: #f4f8ff;
+    padding-bottom: 70px;
+}
+
+
+/* ---------- Page Hero ---------- */
+
+.page-hero {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 65px 24px 35px;
+}
+
+.page-hero-content {
+    max-width: 700px;
+}
+
+.eyebrow {
+    display: block;
+    margin-bottom: 14px;
+    color: #1769ff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.page-hero h1 {
+    margin: 0 0 10px;
+    color: #102c54;
+    font-size: 48px;
+    line-height: 1.1;
+}
+
+.page-hero p {
+    margin: 0;
+    color: #60728b;
+    font-size: 18px;
+}
+
+
+/* ---------- Search ---------- */
+
+.registration-search {
+    max-width: 1140px;
+    margin: 0 auto 35px;
+    padding: 0 24px;
+}
+
+.search-content {
+    display: flex;
+    align-items: flex-end;
+    gap: 18px;
+
+    padding: 28px;
+
+    background: #ffffff;
+    border: 1px solid #e1e9f5;
+    border-radius: 16px;
+
+    box-shadow: 0 8px 25px rgba(16, 44, 84, 0.07);
+}
+
+.search-field {
+    flex: 1;
+}
+
+.search-field label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: #17345d;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.search-field input {
+    width: 100%;
+    height: 48px;
+
+    padding: 0 16px;
+
+    border: 1px solid #d6e0ee;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #102c54;
+    font-size: 15px;
+
+    outline: none;
+}
+
+.search-field input:focus {
+    border-color: #1769ff;
+    box-shadow: 0 0 0 3px rgba(23, 105, 255, 0.10);
+}
+
+
+/* ---------- Button ---------- */
+
+.primary-button {
+    height: 48px;
+
+    padding: 0 30px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #1769ff;
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.primary-button:hover {
+    background: #0d58df;
+    transform: translateY(-1px);
+}
+
+
+/* ---------- Results ---------- */
+
+.registrations-results {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+
+/* ---------- Registration Cards ---------- */
+
+.registration-card {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.8fr;
+
+    gap: 30px;
+
+    margin-bottom: 18px;
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e1e9f5;
+    border-radius: 16px;
+
+    box-shadow: 0 6px 20px rgba(16, 44, 84, 0.06);
+}
+
+.registration-card h2,
+.registration-card h3 {
+    margin-top: 0;
+    color: #102c54;
+}
+
+.registration-card p {
+    color: #60728b;
+    line-height: 1.6;
+}
+
+.registration-details {
+    border-left: 1px solid #e3eaf4;
+    padding-left: 25px;
+}
+
+.registration-status {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    background: #e3f8ec;
+    color: #16834b;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.cancel-button {
+    margin-top: 20px;
+
+    padding: 10px 18px;
+
+    border: 1px solid #ef5350;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #d9302f;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background: #fff1f1;
+}
+
+
+/* ---------- Empty / Loading State ---------- */
+
+.empty-state,
+.loading-state {
+    padding: 45px;
+
+    background: #ffffff;
+
+    border: 1px solid #e1e9f5;
+    border-radius: 16px;
+
+    text-align: center;
+
+    color: #60728b;
+    font-size: 16px;
+}
+
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+    background: #102c54;
+    color: #ffffff;
+}
+
+.footer-inner {
+    max-width: 1140px;
+    min-height: 82px;
+
+    margin: 0 auto;
+    padding: 20px 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    font-size: 14px;
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 800px) {
+
+    .header-inner {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .main-nav {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .page-hero h1 {
+        font-size: 38px;
+    }
+
+    .search-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .primary-button {
+        width: 100%;
+    }
+
+    .registration-card {
+        grid-template-columns: 1fr;
+    }
+
+    .registration-details {
+        border-left: none;
+        border-top: 1px solid #e3eaf4;
+        padding-left: 0;
+        padding-top: 20px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+}

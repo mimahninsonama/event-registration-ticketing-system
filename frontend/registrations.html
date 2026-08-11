@@ -12,46 +12,109 @@
 
 <body>
 
-<header>
+<header class="site-header">
 
-    <h1>My Registrations</h1>
+    <div class="header-inner">
 
-    <nav>
+        <a href="index.html" class="brand">
+            <span class="brand-logo">ERS</span>
+            <span class="brand-name">Event Registration System</span>
+        </a>
 
-        <a href="index.html">Home</a>
-        <a href="events.html">Events</a>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="events.html">Events</a>
+            <a href="registrations.html" class="active">
+                My Registrations
+            </a>
+        </nav>
 
-    </nav>
+    </div>
 
 </header>
 
-<div class="container">
 
-    <div class="card">
+<main class="registrations-page">
 
-        <h2>Search</h2>
+    <section class="page-hero">
 
-        <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-        >
+        <div class="page-hero-content">
 
-        <br><br>
+            <span class="eyebrow">
+                REGISTRATION MANAGEMENT
+            </span>
 
-        <button onclick="loadRegistrations()">
+            <h1>
+                My Registrations
+            </h1>
 
-            Search
+            <p>
+                Search and manage your event registrations in one place.
+            </p>
 
-        </button>
+        </div>
+
+    </section>
+
+
+    <section class="registration-search">
+
+        <div class="search-content">
+
+            <div class="search-field">
+
+                <label for="email">
+                    Search by email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email address"
+                >
+
+            </div>
+
+            <button
+                type="button"
+                class="primary-button"
+                onclick="loadRegistrations()"
+            >
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="registrations-results">
+
+        <div id="registrations-container">
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="footer-inner">
+
+        <span>
+            © 2026 Event Registration System. All rights reserved.
+        </span>
+
+        <span>
+            Built with AWS&nbsp; • &nbsp;Serverless&nbsp; • &nbsp;Terraform&nbsp; • &nbsp;Scalable
+        </span>
 
     </div>
 
-    <div id="registrations-container">
+</footer>
 
-    </div>
-
-</div>
 
 <script src="js/config.js"></script>
 <script src="js/api.js"></script>
