@@ -1,67 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Registration System</title>
-
     <link rel="stylesheet" href="css/styles.css">
-
 </head>
 
 <body>
 
-<header>
+<header class="navbar">
+    <div class="nav-container">
 
-    <h1>Serverless Event Registration System</h1>
-
-    <nav>
-
-        <a href="events.html">Events</a>
-
-        <a href="registrations.html">My Registrations</a>
-
-    </nav>
-
-</header>
-
-<div class="container">
-
-    <div class="card">
-
-        <h2>Welcome to the Event Registration System</h2>
-
-        <br>
-
-        <p>
-
-            Register for upcoming events and manage your registrations.
-
-        </p>
-
-        <br>
-
-        <a href="events.html">
-
-            <button>View Events</button>
-
+        <a href="index.html" class="brand">
+            <span class="brand-logo">ERS</span>
+            <span>Event Registration System</span>
         </a>
 
+        <nav class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="events.html">Events</a>
+            <a href="registrations.html">My Registrations</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="eyebrow">AWS EVENT REGISTRATION PLATFORM</p>
+
+            <h1>
+                Discover events.<br>
+                Register with ease.<br>
+                <span>Manage your ticket.</span>
+            </h1>
+
+            <p class="hero-description">
+                Browse available events, register online, and easily manage
+                your event registrations through a simple, secure, and
+                cloud-powered platform.
+            </p>
+
+            <div class="feature-list">
+
+                <div class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span>Browse available events</span>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span>Simple online registration</span>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span>Instant registration and ticket information</span>
+                </div>
+
+                <div class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span>View and manage your registrations</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="get-started-card">
+
+            <div class="card-icon">✓</div>
+
+            <h2>Get Started</h2>
+
+            <p>
+                Find an event and reserve your place
+                in just a few clicks.
+            </p>
+
+            <a href="events.html" class="primary-button">
+                View Available Events
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div>
+        © 2026 Event Registration System. All rights reserved.
     </div>
 
-</div>
-
-<footer>
-
-    <p>
-        © 2026 Event Registration System | Ninson
-        Built with AWS • Terraform
-    </p>
+    <div class="footer-right">
+        Built with AWS
+        <span>•</span>
+        Serverless
+        <span>•</span>
+        Terraform
+        <span>•</span>
+        Scalable
+    </div>
 
 </footer>
 
 </body>
-
 </html>

@@ -1,98 +1,110 @@
 async function loadEvents() {
-
     const container = document.getElementById("events-container");
 
-    container.innerHTML = "<p>Loading events...</p>";
+    container.innerHTML = `
+        <div class="loading">
+            Loading available events...
+        </div>
+    `;
 
     try {
-
         const response = await apiRequest("/events");
 
-        if (!response.success) {
+        console.log("Events API response:", response);
 
+        const events = Array.isArray(response)
+            ? response
+            : response.data || response.events || [];
+
+        if (!events.length) {
             container.innerHTML = `
-                <div class="card">
-                    <h2>Unable to load events</h2>
-                    <p>Please try again later.</p>
+                <div class="empty-state">
+                    No events are currently available.
                 </div>
             `;
-
             return;
         }
 
-        if (response.data.length === 0) {
+        displayEvents(events);
 
-            container.innerHTML = `
-                <div class="card">
-                    <h2>No Events Available</h2>
-                    <p>There are currently no events.</p>
-                </div>
-            `;
-
-            return;
-        }
-
-        container.innerHTML = "";
-
-        response.data.forEach(event => {
-
-            container.innerHTML += `
-
-                <div class="event-card">
-
-                    <h2>${event.title}</h2>
-
-                    <div class="event-info">
-
-                        <p>📅 ${event.date}</p>
-
-                        <p>📍 ${event.location}</p>
-
-                    </div>
-
-                    <p class="description">
-
-                        ${event.description}
-
-                    </p>
-
-                    <button
-                        onclick="register('${event.event_id}')">
-
-                        Register
-
-                    </button>
-
-                </div>
-
-            `;
-
-        });
-
-    }
-
-    catch (error) {
-
-        console.error(error);
+    } catch (error) {
+        console.error("Failed to load events:", error);
 
         container.innerHTML = `
-            <div class="card">
-                <h2>Error</h2>
-                <p>Failed to connect to the API.</p>
+            <div class="empty-state">
+                Unable to load events. Please try again later.
+            </div>
+        `;
+    }
+}
+
+
+function displayEvents(events) {
+    const container = document.getElementById("events-container");
+
+    container.innerHTML = "";
+
+    events.forEach(event => {
+
+        const card = document.createElement("article");
+
+        card.className = "event-card";
+
+        card.innerHTML = `
+
+            <div class="event-content">
+
+                <h2>
+                    ${escapeHtml(event.title || "Unnamed Event")}
+                </h2>
+
+                <p class="event-description">
+                    ${escapeHtml(
+                        event.description ||
+                        "Join us for this upcoming event."
+                    )}
+                </p>
+
+                <div class="event-info">
+
+                    <span>
+                        📅 ${escapeHtml(event.date || "Date TBA")}
+                    </span>
+
+                    <span>
+                        📍 ${escapeHtml(event.location || "Location TBA")}
+                    </span>
+
+                </div>
+
+                <span class="event-id">
+                    ${escapeHtml(event.event_id)}
+                </span>
+
+                <a
+                    class="register-button"
+                    href="register.html?event_id=${encodeURIComponent(
+                        event.event_id
+                    )}"
+                >
+                    Register Now →
+                </a>
+
             </div>
         `;
 
-    }
-
+        container.appendChild(card);
+    });
 }
 
-function register(eventId) {
 
-    window.location.href =
-        `registrations.html?event=${eventId}`;
-    window.location.href =
-        `register.html?event=${eventId}`;
+function escapeHtml(value) {
+    const div = document.createElement("div");
 
+    div.textContent = value ?? "";
+
+    return div.innerHTML;
 }
+
 
 loadEvents();

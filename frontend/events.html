@@ -1,43 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Available Events</title>
+    <title>Available Events - Event Registration System</title>
 
     <link rel="stylesheet" href="css/styles.css">
-
 </head>
 
 <body>
 
-<header>
+<header class="navbar">
 
-    <h1>Available Events</h1>
+    <div class="nav-container">
 
-    <nav>
+        <a href="index.html" class="brand">
+            <span class="brand-logo">ERS</span>
+            <span>Event Registration System</span>
+        </a>
 
-        <a href="index.html">Home</a>
-        <a href="registrations.html">My Registrations</a>
-
-    </nav>
-
-</header>
-
-<div class="container">
-
-    <div id="events-container">
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="events.html" class="active">Events</a>
+            <a href="registrations.html">My Registrations</a>
+        </nav>
 
     </div>
 
-</div>
+</header>
+
+
+<main class="events-page">
+
+    <section class="page-heading">
+
+        <div>
+
+            <p class="eyebrow">EVENT DISCOVERY</p>
+
+            <h1>Available Events</h1>
+
+            <p>
+                Browse and register for upcoming events.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="events-toolbar">
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="eventSearch"
+                placeholder="Search events..."
+            >
+
+            <span>⌕</span>
+
+        </div>
+
+        <select id="eventFilter">
+            <option value="all">All Events</option>
+        </select>
+
+    </section>
+
+
+    <section>
+
+        <div id="events-container" class="events-grid">
+
+            <div class="loading">
+                Loading available events...
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div>
+        © 2026 Event Registration System. All rights reserved.
+    </div>
+
+    <div class="footer-right">
+        Built with AWS
+        <span>•</span>
+        Serverless
+        <span>•</span>
+        Terraform
+        <span>•</span>
+        Scalable
+    </div>
+
+</footer>
+
 
 <script src="js/config.js"></script>
 <script src="js/api.js"></script>
 <script src="js/events.js"></script>
 
 </body>
-
 </html>
