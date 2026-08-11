@@ -57,7 +57,7 @@ async function loadRegistrations() {
 
             container.innerHTML += `
 
-                <div class="event-card">
+                <div class="registration-card">
 
                     <h3>${registration.event_id}</h3>
 
