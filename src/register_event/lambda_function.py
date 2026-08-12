@@ -72,8 +72,9 @@ def lambda_handler(event, context):
         # --------------------------------
         # Validate email
         # --------------------------------
+        email = body["email"].strip()
 
-        if not validate_email(body["email"]):
+        if not validate_email(email):
             return error_response(
                 message="Invalid email address.",
                 status_code=400
@@ -120,7 +121,7 @@ def lambda_handler(event, context):
             ticket_id=ticket_id,
             event_id=body["event_id"],
             full_name=body["full_name"],
-            email=body["email"]
+            email=email
         )
 
         # --------------------------------
@@ -129,7 +130,7 @@ def lambda_handler(event, context):
 
         response = registrations_table.query(
             IndexName="email-index",
-            KeyConditionExpression=Key("email").eq(body["email"])
+            KeyConditionExpression=Key("email").eq(email)
         )
 
         existing = response.get("Items", [])

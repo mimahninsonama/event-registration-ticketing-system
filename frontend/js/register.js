@@ -1,73 +1,103 @@
-const params = new URLSearchParams(window.location.search);
+async function registerEvent() {
 
-document.getElementById("event_id").value =
-    params.get("event") || "";
+    const eventId = document.getElementById("event_id").value.trim();
+    const fullName = document.getElementById("full_name").value.trim();
+    const email = document.getElementById("email").value.trim();
 
-document
-    .getElementById("registration-form")
-    .addEventListener("submit", registerEvent);
+    const message = document.getElementById("registration-message");
+    const button = document.querySelector(".registration-submit");
 
-async function registerEvent(e) {
+    // Clear previous message
+    message.className = "registration-message";
+    message.textContent = "";
 
-    e.preventDefault();
+    // Validate required fields
+    if (!eventId || !fullName || !email) {
+        message.textContent =
+            "Please complete all fields before registering.";
 
-    const body = {
+        message.classList.add("error");
+        return;
+    }
 
-        event_id:
-            document.getElementById("event_id").value,
+    // Validate email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        full_name:
-            document.getElementById("full_name").value,
+    if (!emailPattern.test(email)) {
+        message.textContent =
+            "Please enter a valid email address.";
 
-        email:
-            document.getElementById("email").value
+        message.classList.add("error");
+        return;
+    }
 
-    };
+    // Disable button while request is processing
+    button.disabled = true;
 
-    const response =
-        await apiRequest(
-            "/register",
-            "POST",
-            body
+    button.innerHTML = `
+        <span>Processing...</span>
+    `;
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE_URL}/register`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    event_id: eventId,
+                    full_name: fullName,
+                    email: email
+                })
+            }
         );
 
-    const message =
-        document.getElementById("message");
+        const data = await response.json();
 
-    if (response.success) {
+        console.log("Registration response:", data);
 
-        message.innerHTML = `
-            <div class="success">
+        if (!response.ok) {
+            throw new Error(
+                data.message ||
+                data.error ||
+                "Registration failed."
+            );
+        }
 
-                <h3>
-                    Registration Successful!
-                </h3>
+        // Success
+        message.textContent =
+            data.message ||
+            "Registration successful! Your ticket has been created.";
 
-                <p>${response.message}</p>
+        message.classList.add("success");
 
-            </div>
+        button.disabled = false;
+
+        button.innerHTML = `
+            <span>Registration Complete</span>
+            <span class="button-arrow">✓</span>
         `;
 
-        document
-            .getElementById("registration-form")
-            .reset();
+    } catch (error) {
 
-    }
+        console.error("Registration error:", error);
 
-    else {
+        message.textContent =
+            error.message ||
+            "Unable to complete registration. Please try again.";
 
-        message.innerHTML = `
-            <div class="error">
+        message.classList.add("error");
 
-                <h3>
-                    Registration Failed
-                </h3>
+        button.disabled = false;
 
-                <p>${response.message}</p>
-
-            </div>
+        button.innerHTML = `
+            <span>Complete Registration</span>
+            <span class="button-arrow">→</span>
         `;
-
     }
-
 }
